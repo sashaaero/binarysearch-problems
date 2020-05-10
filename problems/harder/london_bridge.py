@@ -1,3 +1,5 @@
+# https://binarysearch.io/question/309
+
 class Solution:
     def solve(self, G):
         time = 0
