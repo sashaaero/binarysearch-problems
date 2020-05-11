@@ -14,19 +14,18 @@ class TestLinkedListBuilding(TestCase):
         self.assertEqual(list_1, list_2)
 
     def test_float_ll(self):
-        list_1 = [1.0, 2.0, 3.0, 4.0, 5.0]
-        node = LLNode.make(' -> '.join(map(str, list_1)), converter=float)
-        list_2 = []
-        while node:
-            list_2.append(node.val)
-            node = node.next
-
+        list_1_data = [1.0, 2.0, 3.0, 4.0, 5.0]
+        list_1 = LLNode.make(' -> '.join(map(str, list_1_data)), converter=float)
+        list_2 = LLNode(1.0)
+        list_2.next = LLNode(2.0)
+        list_2.next.next = LLNode(3.0)
+        list_2.next.next.next = LLNode(4.0)
+        list_2.next.next.next.next = LLNode(5.0)
         self.assertEqual(list_1, list_2)
 
 
 class TestBinaryTreeBuilding(TestCase):
     def test(self):
-        tree_1 = [1, 2, 3, 4, 5, 6, 7]
         tree_dict = {
             val: 1,
             left: {
@@ -40,18 +39,12 @@ class TestBinaryTreeBuilding(TestCase):
                 right: {val: 7, left: None, right: None}
             }
         }
-        root = Tree.make(tree_dict)
-
-        def preorder(tree):
-            data = []
-
-            def inner(node):
-                if node is None: return
-                data.append(node.val)
-                inner(node.left)
-                inner(node.right)
-            inner(tree)
-            return data
-
-        tree_2 = preorder(root)
+        tree_1 = Tree.make(tree_dict)
+        tree_2 = Tree(1)
+        tree_2.left = Tree(2)
+        tree_2.left.left = Tree(3)
+        tree_2.left.right = Tree(4)
+        tree_2.right = Tree(5)
+        tree_2.right.left = Tree(6)
+        tree_2.right.right = Tree(7)
         self.assertEqual(tree_1, tree_2)

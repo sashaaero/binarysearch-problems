@@ -19,6 +19,17 @@ class LLNode:
             prev_node = node
         return root
 
+    def flat(self):
+        res = []
+        node = self
+        while node:
+            res.append(node.val)
+            node = node.next
+        return res
+
+    def __eq__(self, other):
+        return self.flat() == other.flat()
+
 
 val = 'val'
 left = 'left'
@@ -38,5 +49,19 @@ class Tree:
                 return None
             return Tree(data[val], parse_tree(data.get(left)), parse_tree(data.get(right)))
         return parse_tree(data)
+
+    def preorder(self):
+        data = []
+        def inner(node):
+            if node is None: return
+            data.append(node.val)
+            inner(node.left)
+            inner(node.right)
+
+        inner(self)
+        return data
+
+    def __eq__(self, other):
+        return self.preorder() == other.preorder()
 
 
