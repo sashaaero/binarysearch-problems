@@ -1,15 +1,15 @@
 class Solution:
-    def solve(self, A):
-        P = [0]
-        base = 0
-        for i, x in enumerate(A, 1):
-            P.append(P[-1] + x)
-            base += i * x
+    def solve(self, nums):
+        dp = [0]
+        x = 0
+        for i, x in enumerate(nums, 1):
+            dp.append(dp[-1] + x)
+            x += i * x
 
-        ans = base
-        for i, x in enumerate(A):
-            for j in range(len(A) + 1):
-                ans = max(ans, base + P[i] - P[j] - (i - j) * x)
+        ans = x
+        for i, x in enumerate(nums):
+            for j in range(len(nums) + 1):
+                ans = max(ans, x + dp[i] - dp[j] - (i - j) * x)
         return ans
 
 

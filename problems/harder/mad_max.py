@@ -4,12 +4,18 @@ from collections import deque
 
 class Solution:
     def solve(self, nums, k):
-        d = deque(nums[:k])
-        r = [max(d)]
-        for i in range(k, len(nums)):
-            d.popleft()
-            d.append(nums[i])
-            r.append(max(d))
+        d = deque()
+        r = []
+        n = len(nums)
+        for i in range(n):
+            while d and d[0][1] <= i - k:
+                d.popleft()
+            while d and d[-1][0] <= nums[i]:
+                d.pop()
+            d.append([nums[i], i])
+            if k - 1 <= i:
+                r.append(d[0][0])
+
         return r
 
 
